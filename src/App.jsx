@@ -1,13 +1,30 @@
 import React from "react";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+
 import Header from "./components/Header/Header";
 import { clx } from "./utils/clx";
+import MainContainer from "./components/Main/mainContainer";
+import CreateItem from "./components/createItem/createItem";
 
 const App = () => {
-  const classes = clx('w-screen h-auto flex flex-col bg-primary');
+  const classes = clx("w-screen h-auto flex flex-col bg-primary");
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <Header />,
+      children: [
+        {
+          index: true,
+          element: <MainContainer />,
+        },
+
+        { path: "create", element: <CreateItem /> },
+      ],
+    },
+  ]);
   return (
     <div className={classes}>
-      <Header />
-      {/* <main>hellor</main> */}
+      <RouterProvider router={router} />
     </div>
   );
 };
