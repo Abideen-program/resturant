@@ -1,7 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { fetchUser } from "../../../utils/fetchUser";
+
+const userInfo = fetchUser();
 
 const initialState = {
-  user: null,
+  user: userInfo,
 };
 
 const userSlice = createSlice({

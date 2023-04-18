@@ -32,6 +32,9 @@ function Header() {
       user: { refreshToken, providerData },
     } = await signInWithPopup(auth, provider);
     dispatch(setUser(providerData[0]));
+
+    //save the user data into the local storage to be use after refresh
+    localStorage.setItem("user", JSON.stringify(providerData[0]));
   };
 
   return (
@@ -68,7 +71,7 @@ function Header() {
             <div className="relative">
               <motion.img
                 whileTap={{ scale: 0.6 }}
-                src={owner ? owner.photoURL : avatar}
+                src={owner ? owner?.photoURL : avatar}
                 className="w-10 min-w-[40px] h-10 min-h-[40px] drop-shadow-lg cursor-pointer rounded-full"
                 alt="user profile picture"
                 onClick={signUp}
