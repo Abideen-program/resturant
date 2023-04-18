@@ -7,34 +7,37 @@ import { setUser } from "../Store/features/userSlice";
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 
 import { app } from "../../../firebase.config";
+import UserDropdown from "../UserDropdown/UserDropdown";
 import logo from "../../assets/logo.png";
 import avatar from "../../assets/avatar.png";
 import { clx } from "../../utils/clx";
 
-function Header() {
-  const classes = clx("fixed w-screen py-6 px-16 z-50");
-  const listItemClasses = clx(
-    '"text-base cursor-pointer text-textColor hover:text-headingColor transition-all duration-100 ease-in-out"'
-  );
+const classes = clx("fixed w-screen py-6 px-16 z-50");
+const listItemClasses = clx(
+  '"text-base cursor-pointer text-textColor hover:text-headingColor transition-all duration-100 ease-in-out"'
+);
 
-  const owner = useSelector((state) => state.user.user);
+//GET THE AUTH
+const auth = getAuth(app);
+//GET THE NEW PROVIDER
+const provider = new GoogleAuthProvider();
+function Header() {
+  const loggedInUser = useSelector((state) => state.user.user);
 
   const dispatch = useDispatch();
 
-  //GET THE AUTH
-  const auth = getAuth(app);
-  //GET THE NEW PROVIDER
-  const provider = new GoogleAuthProvider();
-
   //sign up callback
   const signUp = async () => {
-    const {
-      user: { refreshToken, providerData },
-    } = await signInWithPopup(auth, provider);
-    dispatch(setUser(providerData[0]));
+    //only sign in the user, if there is not a logged in user
+    if (!loggedInUser) {
+      const {
+        user: { refreshToken, providerData },
+      } = await signInWithPopup(auth, provider);
+      dispatch(setUser(providerData[0]));
 
-    //save the user data into the local storage to be use after refresh
-    localStorage.setItem("user", JSON.stringify(providerData[0]));
+      //save the user data into the local storage to be use after refresh
+      localStorage.setItem("user", JSON.stringify(providerData[0]));
+    }
   };
 
   return (
@@ -71,11 +74,13 @@ function Header() {
             <div className="relative">
               <motion.img
                 whileTap={{ scale: 0.6 }}
-                src={owner ? owner?.photoURL : avatar}
+                src={loggedInUser ? loggedInUser?.photoURL : avatar}
                 className="w-10 min-w-[40px] h-10 min-h-[40px] drop-shadow-lg cursor-pointer rounded-full"
                 alt="user profile picture"
                 onClick={signUp}
               />
+
+              <UserDropdown />
             </div>
           </div>
         </div>

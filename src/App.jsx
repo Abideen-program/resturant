@@ -3,8 +3,8 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import Header from "./components/Header/Header";
 import { clx } from "./utils/clx";
-import MainContainer from "./components/Main/mainContainer";
-import CreateItem from "./components/createItem/createItem";
+import MainContainer from "./components/Main/MainContainer";
+import CreateItem from "./components/createItem/CreateItem";
 
 const App = () => {
   const classes = clx("w-screen h-auto flex flex-col bg-primary");
