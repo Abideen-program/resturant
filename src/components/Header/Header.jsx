@@ -13,7 +13,9 @@ import logo from "../../assets/logo.png";
 import avatar from "../../assets/avatar.png";
 import { clx } from "../../utils/clx";
 
-const classes = clx("fixed w-screen p-4 md:py-6 md:px-16 z-50");
+const classes = clx(
+  "fixed w-screen p-4 lg:py-6 md:px-16 z-50 bg-primary shadow-sm"
+);
 const listItemClasses = clx(
   '"text-base cursor-pointer text-textColor hover:text-headingColor transition-all duration-100 ease-in-out"'
 );
