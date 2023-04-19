@@ -95,7 +95,7 @@ function Header() {
               <motion.img
                 whileTap={{ scale: 0.6 }}
                 src={loggedInUser ? loggedInUser?.photoURL : avatar}
-                className="w-9 min-w-[40px] h-9 min-h-[40px] drop-shadow-lg cursor-pointer rounded-full"
+                className="w-9 min-w-[40px] h-9 min-h-[40px] drop-shadow-lg cursor-pointer rounded-full object-contain"
                 alt="user profile picture"
                 onClick={signUp}
               />

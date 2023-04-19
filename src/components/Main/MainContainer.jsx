@@ -1,8 +1,12 @@
 import React from "react";
 
+import Home from "../Home/Home";
+
 const MainContainer = () => {
   return (
-    <main className="mt-24 p-8 px-16 w-full">Main container</main>
+    <main>
+      <Home />
+    </main>
   );
 };
 
