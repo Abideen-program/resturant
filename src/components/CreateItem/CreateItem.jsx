@@ -8,6 +8,7 @@ import { categories } from "../../utils/foodData";
 import Loader from "../Loader/Loader";
 import IMAGE from "../../assets/f1.png";
 import Input from "../Input/Input";
+import Select from "../Input/Select";
 
 const CreateItem = () => {
   const field = useSelector((state) => state.newItem.field);
@@ -51,27 +52,10 @@ const CreateItem = () => {
             onChange={(e) => dispatch(setTitle(e.target.value))}
           />
 
-          <div className="w-full">
-            <select
-              className="outline-none w-full p-2 rounded-md border-b-2 border-gray-200 cursor-pointer"
-              onChange={(e) => dispatch(setCategory(e.target.value))}
-            >
-              <option value="other" className="bg-white">
-                Select Category
-              </option>
-              {categories?.map((cate) => {
-                return (
-                  <option
-                    key={cate.id}
-                    value={cate.urlParamName}
-                    className="text-base border-0 outline-none capitalize bg-white text-headingColor"
-                  >
-                    {cate.name}
-                  </option>
-                );
-              })}
-            </select>
-          </div>
+          <Select
+            onChange={(e) => dispatch(setCategory(e.target.value))}
+            categories={categories}
+          />
 
           <div className="group w-full h-225 md:h-420 border-2 border-dotted border-gray-300 rounded-lg cursor-pointer flex flex-col items-center justify-center">
             {isLoading ? (
