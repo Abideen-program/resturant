@@ -6,7 +6,6 @@ const MainContainer = () => {
   return (
     <main>
       <Home />
-     <div>Hello</div>
     </main>
   );
 };
