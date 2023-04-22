@@ -5,6 +5,7 @@ import { setTitle, setCategory } from "../Store/features/newItemSlice";
 import { MdFastfood } from "react-icons/md";
 
 import { categories } from "../../utils/foodData";
+import Loader from "../Loader/Loader";
 
 const CreateItem = () => {
   const field = useSelector((state) => state.newItem.field);
@@ -12,6 +13,8 @@ const CreateItem = () => {
   const message = useSelector((state) => state.newItem.message);
   const title = useSelector((state) => state.newItem.title);
   const category = useSelector((state) => state.newItem.category);
+  const isLoading = useSelector((state) => state.newItem.isLoading);
+
   const dispatch = useDispatch();
 
   return (
@@ -65,6 +68,10 @@ const CreateItem = () => {
                 );
               })}
             </select>
+          </div>
+
+          <div className="group w-full h-225 md:h-420 border-2 border-dotted border-gray-300 rounded-lg cursor-pointer flex flex-col items-center justify-center">
+            {isLoading ? <Loader /> : <></>}
           </div>
         </div>
       </div>
