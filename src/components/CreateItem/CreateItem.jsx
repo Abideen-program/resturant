@@ -29,10 +29,10 @@ import {
 
 import { categories } from "../../utils/foodData";
 import Loader from "../Loader/Loader";
-import IMAGE from "../../assets/f1.png";
 import Input from "../Input/Input";
 import Select from "../Input/Select";
 import { storage } from "../../../firebase.config";
+import { saveFoodData } from "../../utils/saveFoodData";
 
 const CreateItem = () => {
   const field = useSelector((state) => state.newItem.field);
@@ -138,16 +138,21 @@ const CreateItem = () => {
           quantity: 1,
           price,
         };
+        
+        saveFoodData(data); //save the food details to firestore
+        dispatch(setLoading(false));
+        dispatch(setMessage("Files saved successfully 😊"));
+        dispatch(setField(true));
 
-        console.log(data);
         setTimeout(() => {
-          dispatch(setLoading(false));
+          dispatch(setField(false));
           dispatch(setImageAsset(null));
+          dispatch(setMessage(null));
           dispatch(setTitle(""));
           dispatch(setCategory(null));
           dispatch(setCalories(""));
           dispatch(setPrice(""));
-        }, 4000);
+        }, 3000);
       }
     } catch (error) {
       dispatch(setMessage("Error while uploading file 😔"));
