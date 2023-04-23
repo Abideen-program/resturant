@@ -6,6 +6,11 @@ import {
   setCategory,
   setCalories,
   setPrice,
+  setLoading,
+  setField,
+  setMessage,
+  setAlertStatus,
+  setImageAsset,
 } from "../Store/features/newItemSlice";
 
 import {
@@ -15,12 +20,19 @@ import {
   MdFoodBank,
   MdAttachMoney,
 } from "react-icons/md";
+import {
+  deleteObject,
+  getDownloadURL,
+  ref,
+  uploadBytesResumable,
+} from "firebase/storage";
 
 import { categories } from "../../utils/foodData";
 import Loader from "../Loader/Loader";
 import IMAGE from "../../assets/f1.png";
 import Input from "../Input/Input";
 import Select from "../Input/Select";
+import { storage } from "../../../firebase.config";
 
 const CreateItem = () => {
   const field = useSelector((state) => state.newItem.field);
@@ -35,16 +47,112 @@ const CreateItem = () => {
 
   const dispatch = useDispatch();
 
-  const uploadHandler = () => {};
+  const errorMessageFunction = () => {
+    dispatch(setField(true));
+    dispatch(setAlertStatus("danger"));
 
-  const deleteImage = () => {};
+    setTimeout(() => {
+      dispatch(setLoading(false));
+      dispatch(setField(false));
+      dispatch(setMessage(null));
+      dispatch(setAlertStatus(""));
+    }, 4000);
+  };
 
+  //all codes here deals with uploading of file
+  const uploadHandler = (e) => {
+    dispatch(setLoading(true));
+    //get the image data from the input tag (type='file')
+    const imageFile = e.target.files[0];
+    //make a reference to the storage, and where to store with unique name
+    const storageRef = ref(storage, `Images/${Date.now()}-${imageFile.name}`);
+    //upload to the storage with storageRef and the file you want to upload
+    const uploadTask = uploadBytesResumable(storageRef, imageFile);
+
+    //to see the progress of the upload
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        const uploadProgress =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      },
+
+      //if there is error
+      (error) => {
+        dispatch(setMessage("Error while uploading file 😔"));
+        errorMessageFunction();
+      },
+
+      //if successful
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          dispatch(setField(true));
+          dispatch(setLoading(false));
+          dispatch(setImageAsset(downloadURL));
+          dispatch(setMessage("File uploaded successfully 😊"));
+          dispatch(setAlertStatus("Success"));
+
+          setTimeout(() => {
+            dispatch(setField(false));
+            dispatch(setMessage(null));
+            dispatch(setAlertStatus(""));
+          }, 4000);
+        });
+      }
+    );
+  };
+
+  //This will handle deleting the uploaded image
+  const deleteImage = () => {
+    dispatch(setLoading(true));
+
+    const deleteRef = ref(storage, imageAsset);
+
+    deleteObject(deleteRef).then(() => {
+      dispatch(setLoading(false));
+      dispatch(setImageAsset(null));
+      dispatch(setMessage("Image deleted successfully 😊"));
+      dispatch(setField(true));
+
+      setTimeout(() => {
+        dispatch(setField(false));
+        dispatch(setMessage(null));
+      }, 4000);
+    });
+  };
+
+  //This will handle the saving of the uploaded data to firebase
   const saveDetails = () => {
-    console.log({ title, category, calories, price });
-    dispatch(setTitle(""));
-    dispatch(setCategory(null));
-    dispatch(setCalories(""));
-    dispatch(setPrice(""));
+    dispatch(setLoading(true));
+    //check if any of the input field is missing
+    try {
+      if (!title || !category || !price || !calories || !imageAsset) {
+        dispatch(setMessage("All required field must be filled 😔"));
+        errorMessageFunction();
+      } else {
+        const data = {
+          id: `${Date.now()}`,
+          title,
+          imageURL: imageAsset,
+          category,
+          quantity: 1,
+          price,
+        };
+
+        console.log(data);
+        setTimeout(() => {
+          dispatch(setLoading(false));
+          dispatch(setImageAsset(null));
+          dispatch(setTitle(""));
+          dispatch(setCategory(null));
+          dispatch(setCalories(""));
+          dispatch(setPrice(""));
+        }, 4000);
+      }
+    } catch (error) {
+      dispatch(setMessage("Error while uploading file 😔"));
+      errorMessageFunction();
+    }
   };
 
   return (
@@ -63,7 +171,6 @@ const CreateItem = () => {
               }`}
             >
               {message}
-              Helolo
             </motion.p>
           )}
 
@@ -87,7 +194,7 @@ const CreateItem = () => {
               <>
                 {!imageAsset ? ( //if not check if there is a loaded image from the firebase
                   <>
-                    {/* if there is not loaded click to upload an image urself */}
+                    {/* if there is no loaded image, click to upload an image urself */}
                     <label className="w-full h-ful flex flex-col justify-center items-center">
                       <div className="w-full h-ful flex flex-col justify-center gap-2 items-center cursor-pointer">
                         <MdCloudUpload className="text-3xl text-gray-500 hover:text-gray-700" />
@@ -132,7 +239,7 @@ const CreateItem = () => {
           <div className="flex flex-col md:flex-row md:gap-3 w-full">
             <Input
               icon={<MdFoodBank className="text-xl text-gray-700" />}
-              type={"text"}
+              type={"number"}
               placeholder={"Calories"}
               value={calories}
               onChange={(e) => dispatch(setCalories(e.target.value))}

@@ -7,7 +7,7 @@ const initialState = {
   category: null,
   imageAsset: null,
   field: false,
-  alertStatus: "danger",
+  alertStatus: "",
   message: null,
   isLoading: false,
 };
