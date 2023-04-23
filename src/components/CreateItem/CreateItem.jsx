@@ -33,6 +33,7 @@ import Input from "../Input/Input";
 import Select from "../Input/Select";
 import { storage } from "../../../firebase.config";
 import { saveFoodData } from "../../utils/saveFoodData";
+import { getFoodData } from "../../utils/saveFoodData";
 
 const CreateItem = () => {
   const field = useSelector((state) => state.newItem.field);
@@ -44,6 +45,7 @@ const CreateItem = () => {
   const imageAsset = useSelector((state) => state.newItem.imageAsset);
   const calories = useSelector((state) => state.newItem.calories);
   const price = useSelector((state) => state.newItem.price);
+  const items = useSelector((state) => state.items.items);
 
   const dispatch = useDispatch();
 
@@ -57,6 +59,12 @@ const CreateItem = () => {
       dispatch(setMessage(null));
       dispatch(setAlertStatus(""));
     }, 4000);
+  };
+
+  const fetchFoodItems = async () => {
+    await getFoodData().then((data) => {
+      dispatch(setItems(data));
+    });
   };
 
   //all codes here deals with uploading of file
@@ -97,6 +105,8 @@ const CreateItem = () => {
             dispatch(setMessage(null));
             dispatch(setAlertStatus(""));
           }, 4000);
+
+          fetchFoodItems();
         });
       }
     );
@@ -138,7 +148,7 @@ const CreateItem = () => {
           quantity: 1,
           price,
         };
-        
+
         saveFoodData(data); //save the food details to firestore
         dispatch(setLoading(false));
         dispatch(setMessage("Files saved successfully 😊"));
