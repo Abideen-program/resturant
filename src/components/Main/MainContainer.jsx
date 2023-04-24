@@ -6,11 +6,13 @@ import RowComponent from "../RowComponent/RowComponent";
 import { useSelector } from "react-redux";
 
 const MainContainer = () => {
+  
   const foodItems = useSelector((state) => state.items.items);
+
   return (
     <main>
       <Home />
-      <FruitsSection />
+      <FruitsSection/>
       <RowComponent flag={true} data={foodItems} />
     </main>
   );
