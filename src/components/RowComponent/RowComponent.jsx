@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 const RowComponent = ({ flag, data }) => {
   const classes = clx(
     `w-full p-4 md:px-16 mb-6 flex gap-3 ${
-      flag ? "overflow-x-scroll" : "overflow-x-hidden flex-wrap"
+      flag ? "overflow-x-scroll scrollbar-none" : "overflow-x-hidden flex-wrap"
     }`
   );
 
