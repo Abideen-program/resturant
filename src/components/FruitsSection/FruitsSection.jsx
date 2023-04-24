@@ -4,7 +4,7 @@ import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 
 import { clx } from "../../utils/clx";
 
-const classes = clx("w-full  p-4 md:px-16 mb-6");
+const classes = clx("w-full  p-4 md:px-16");
 
 const FruitsSection = () => {
   return (

@@ -6,7 +6,7 @@ import { imageData } from "../../utils/foodData";
 const SecondSection = () => {
   return (
     <div>
-      <div className="py-2 bg-ble-400 flex-1 relative px-2">
+      <div className="py-2 flex-1 relative px-2">
         <img
           src={Herobg}
           alt="hero-bg"
