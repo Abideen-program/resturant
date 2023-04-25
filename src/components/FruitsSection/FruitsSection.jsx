@@ -12,8 +12,6 @@ const FruitsSection = () => {
   const scrollValue = useSelector((state) => state.scrollValue.scrollValue);
   const dispatch = useDispatch();
 
-  console.log(scrollValue);
-
   const scrollToLeft = (e) => {
     if (scrollValue === 0) {
       dispatch(setScrollValue(1000));

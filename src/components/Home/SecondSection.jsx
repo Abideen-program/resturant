@@ -25,7 +25,7 @@ const SecondSection = () => {
                 <p className="text-[14px] md:text-base text-textColor font-semibold">
                   {image.name}
                 </p>
-                <p className="text-xs lg:text-sm font-semibold text-lightTextGray my-1 lg:my-2">
+                <p className="text-xs font-semibold text-lightTextGray my-1 lg:my-2">
                   {image.description}
                 </p>
                 <p className="text-sm font-semibold text-headingColor">

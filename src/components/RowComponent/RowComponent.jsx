@@ -10,14 +10,12 @@ const RowComponent = ({ flag, data }) => {
   let scrollValue = useSelector((state) => state.scrollValue.scrollValue);
 
   const classes = clx(
-    `w-full p-4 md:px-16 mb-6 flex gap-3 scroll-smooth ${
-      flag ? "overflow-x-scroll scrollbar-none" : "overflow-x-hidden flex-wrap"
+    `w-full p-4 md:px-16 flex gap-3 scroll-smooth ${
+      flag
+        ? "overflow-x-scroll scrollbar-none"
+        : "overflow-x-hidden flex-wrap justify-center"
     }`
   );
-
-  const fruitItems = data?.filter((item) => {
-    return item.category === "fruits";
-  });
 
   useEffect(() => {
     rowContainer.current.scrollLeft = scrollValue;
@@ -25,19 +23,19 @@ const RowComponent = ({ flag, data }) => {
 
   return (
     <div className={classes} ref={rowContainer}>
-      {fruitItems?.map((item) => {
+      {data?.map((item) => {
         return (
           <div
             key={item.id}
             className="w-275 min-w-[275px] md:w-300 md:min-w-[300px] h-auto my-6 px-4 pb-2 rounded-lg bg-cardOverlay backdrop-blur-lg hover:drop-shadow-lg flex flex-col justify-between"
           >
             <div className="w-full flex items-center justify-between">
-              <motion.img
+              <motion.div
                 whileHover={{ scale: 1.2 }}
-                src={item.imageURL}
-                alt=""
-                className="w-40 -mt-8 drop-shadow-2xl"
-              />
+                className="w-40 h-40 -mt-8 drop-shadow-2xl"
+              >
+                <img src={item.imageURL} className="w-full h-full object-contain" alt="" />
+              </motion.div>
 
               <motion.div
                 whileTap={{ scale: 0.6 }}
