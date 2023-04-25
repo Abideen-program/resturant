@@ -9,11 +9,9 @@ const RowComponent = ({ flag, data }) => {
 
   let scrollValue = useSelector((state) => state.scrollValue.scrollValue);
 
-  console.log(scrollValue);
-
   const classes = clx(
-    `w-full p-4 md:px-16 mb-6 flex bg-orange-500 gap-3 scroll-smooth ${
-      flag ? "overflow-x-scroll" : "overflow-x-hidden flex-wrap"
+    `w-full p-4 md:px-16 mb-6 flex gap-3 scroll-smooth ${
+      flag ? "overflow-x-scroll scrollbar-none" : "overflow-x-hidden flex-wrap"
     }`
   );
 
@@ -31,14 +29,14 @@ const RowComponent = ({ flag, data }) => {
         return (
           <div
             key={item.id}
-            className="w-300 min-w-[300px] md:w-340 md:min-w-[340px] h-auto my-6 px-4 pb-2 rounded-lg bg-cardOverlay backdrop-blur-lg hover:drop-shadow-lg"
+            className="w-275 min-w-[275px] md:w-300 md:min-w-[300px] h-auto my-6 px-4 pb-2 rounded-lg bg-cardOverlay backdrop-blur-lg hover:drop-shadow-lg flex flex-col justify-between"
           >
             <div className="w-full flex items-center justify-between">
               <motion.img
                 whileHover={{ scale: 1.2 }}
                 src={item.imageURL}
                 alt=""
-                className="w-40 -mt-10 drop-shadow-2xl"
+                className="w-40 -mt-8 drop-shadow-2xl"
               />
 
               <motion.div
