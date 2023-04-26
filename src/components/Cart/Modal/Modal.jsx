@@ -18,7 +18,7 @@ const BackDrop = () => {
 const Modaloverlay = (props) => {
   const { children } = props;
   return (
-    <div className="fixed top-[25vh] lg:top-[35vh] left-[15%] md:left-[20%] lg:left-[calc(50%_-_15rem)] w-[70%] md:w-[30rem]  h-[20rem] bg-card p-4 rounded-2xl shadow-md z-30">
+    <div className="fixed top-[25vh] lg:top-[35vh] left-[15%] md:left-[20%] lg:left-[calc(50%_-_15rem)] w-[70%] md:w-[30rem]  h-[20rem] bg-card p-4 md:px-10 rounded-2xl shadow-md z-30 overflow-y-scroll scrollbar-none">
       <div>{children}</div>
     </div>
   );

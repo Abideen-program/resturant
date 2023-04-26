@@ -14,8 +14,7 @@ const RowComponent = ({ flag, data }) => {
 
   let scrollValue = useSelector((state) => state.scrollValue.scrollValue);
 
-  let cartItems = useSelector((state) => state.cartItems.cartItems);
-  console.log(cartItems);
+  const cartItems = useSelector((state) => state.cartItems.cartItems);
 
   const dispatch = useDispatch();
 
