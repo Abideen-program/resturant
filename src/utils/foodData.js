@@ -77,4 +77,10 @@ export const categories = [
     name: "Soft drinks",
     urlParamName: "drinks",
   },
+
+  {
+    id: 8,
+    name: "Vegetables",
+    urlParamName: "veggies",
+  },
 ];

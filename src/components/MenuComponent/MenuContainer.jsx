@@ -12,7 +12,7 @@ const classes = clx("w-full mb-6 p-4 md:px-16");
 const MenuContainer = () => {
   const [filter, setFilter] = React.useState("chicken");
   const foodItems = useSelector((state) => state.items.items);
-  console.log(foodItems);
+  
   return (
     <div className={classes} id="menu">
       <div className="w-full flex flex-col items-center justify-center">
