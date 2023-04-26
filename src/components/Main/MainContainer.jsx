@@ -5,8 +5,7 @@ import FruitsSection from "../FruitsSection/FruitsSection";
 import RowComponent from "../RowComponent/RowComponent";
 import { useSelector } from "react-redux";
 import MenuContainer from "../MenuComponent/MenuContainer";
-import Modaloverlay from "../Cart/Modal/Modal";
-// import BackDrop from "../Cart/Modal/Modal";
+import CartBody from "../Cart/CartBody";
 
 const MainContainer = () => {
   
@@ -18,8 +17,7 @@ const MainContainer = () => {
       <FruitsSection/>
       <RowComponent flag={true} data={foodItems?.filter((item) => item.category === 'fruits')} />
       <MenuContainer />
-      {/* <BackDrop /> */}
-      <Modaloverlay />
+      <CartBody />
     </main>
   );
 };
