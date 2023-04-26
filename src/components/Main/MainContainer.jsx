@@ -10,6 +10,7 @@ import CartBody from "../Cart/CartBody";
 const MainContainer = () => {
   
   const foodItems = useSelector((state) => state.items.items);
+  const showCart = useSelector((state) => state.cartItems.showCart)
 
   return (
     <main>
@@ -17,7 +18,7 @@ const MainContainer = () => {
       <FruitsSection/>
       <RowComponent flag={true} data={foodItems?.filter((item) => item.category === 'fruits')} />
       <MenuContainer />
-      <CartBody />
+      {showCart && <CartBody />}
     </main>
   );
 };

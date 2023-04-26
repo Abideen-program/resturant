@@ -1,6 +1,5 @@
 import React from "react";
 import { Link, Outlet } from "react-router-dom";
-import { MdShoppingBasket } from "react-icons/md";
 import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../Store/features/userSlice";

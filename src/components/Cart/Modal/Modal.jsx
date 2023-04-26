@@ -1,15 +1,24 @@
 import ReactDOM from "react-dom";
+import { useSelector, useDispatch } from "react-redux";
+
+import { hideCart } from "../../Store/features/CartItemSlice";
 
 const BackDrop = () => {
+  const showCart = useSelector((state) => state.cartItems.showCart);
+  const dispatch = useDispatch();
+
   return (
-    <div className="fixed bg-backDrop w-full h-screen left-0 top-0 z-20"></div>
+    <div
+      className="fixed bg-backDrop w-full h-screen left-0 top-0 z-20"
+      onClick={() => dispatch(hideCart())}
+    ></div>
   );
 };
 
 const Modaloverlay = (props) => {
   const { children } = props;
   return (
-    <div className="fixed top-[25vh] lg:top-[35vh] left-[15%] md:left-[20%] lg:left-[calc(50%_-_20rem)] w-[70%] md:w-[30rem] lg:w-[40rem] h-[20rem] bg-card p-4 rounded-2xl shadow-md z-30">
+    <div className="fixed top-[25vh] lg:top-[35vh] left-[15%] md:left-[20%] lg:left-[calc(50%_-_15rem)] w-[70%] md:w-[30rem]  h-[20rem] bg-card p-4 rounded-2xl shadow-md z-30">
       <div>{children}</div>
     </div>
   );
