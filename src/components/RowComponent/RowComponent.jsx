@@ -55,11 +55,9 @@ const RowComponent = ({ flag, data }) => {
                 <motion.div
                   whileTap={{ scale: 0.6 }}
                   className="h-8 w-8 bg-red-600 rounded-full flex items-center justify-center cursor-pointer hover:shadow-md"
+                  onClick={() => dispatch(addItemToCart(item))}
                 >
-                  <MdShoppingBasket
-                    className="text-white"
-                    onClick={() => dispatch(addItemToCart(item))}
-                  />
+                  <MdShoppingBasket className="text-white" />
                 </motion.div>
               </div>
 

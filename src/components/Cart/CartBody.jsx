@@ -1,19 +1,31 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { MdOutlineKeyboardBackspace } from "react-icons/md";
 
 import { RiRefreshFill } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
 import { motion } from "framer-motion";
 
-import { hideCart } from "../Store/features/CartItemSlice";
+import {
+  hideCart,
+  setClearCart,
+  setCartTotal,
+} from "../Store/features/CartItemSlice";
 import Modal from "./Modal/Modal";
 import CartItem from "./CartItem";
 
 const CartBody = () => {
   const cartItems = useSelector((state) => state.cartItems.cartItems);
-  console.log(cartItems);
+  const cartTotal = useSelector((state) => state.cartItems.cartTotal);
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    const total = cartItems.reduce((total, itemCurr) => {
+      return total + itemCurr.quantity * itemCurr.price;
+    }, 0);
+
+    dispatch(setCartTotal(total));
+  }, [cartItems]);
 
   return (
     <Modal>
@@ -29,6 +41,7 @@ const CartBody = () => {
           <motion.p
             whileTap={{ scale: 0.6 }}
             className="flex text-xs md:text-sm items-center gap-2 bg-gray-400 py-1 px-2 rounded-md cursor-pointer hover:shadow-md transition-all ease-in-out duration-100"
+            onClick={() => dispatch(setClearCart())}
           >
             Clear <RiRefreshFill />
           </motion.p>
@@ -39,14 +52,16 @@ const CartBody = () => {
         })}
       </div>
 
-      <div className="w-full flex mt-2">
-        <p className="ml-auto font-semibold text-headingColor md:text-xl">
-          Total: $00
+      <div className="w-full flex justify-end mt-3 font-semibold text-headingColor md:text-xl">
+        <p>
+          Total: <span className="text-sm text-orange-600">$</span>
         </p>
+        <span>{`${cartTotal.toFixed(2)}`}</span>
       </div>
 
       <div className="flex">
-        <motion.button whileTap={{scale: 0.6}}
+        <motion.button
+          whileTap={{ scale: 0.6 }}
           type="button"
           className="bg-gradient-to-br from-orange-400 to-orange-700 px-6 py-2 w-full mx-0 md:mx-auto md:w-auto text-headingColor font-semibold rounded-full mt-7 cursor-pointer hover:shadow-md transition-all duration-100 ease-in-out"
         >

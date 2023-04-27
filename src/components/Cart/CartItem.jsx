@@ -2,10 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { BiMinus, BiPlus } from "react-icons/bi";
 
-import IMAGE from "../../assets/i1.png";
-
 const CartItem = ({ item }) => {
-    console.log(item)
   return (
     <>
       <div className="w-full flex items-center justify-between border-b mt-3 border-orange-600 pb-2">
@@ -16,7 +13,9 @@ const CartItem = ({ item }) => {
             alt=""
             className="w-16 h-16 rounded-full object-contain"
           />
-          <p className="text-[10px] md:text-xs text-headingColor">{item.title}</p>
+          <p className="text-[10px] md:text-xs text-headingColor">
+            {item.title}
+          </p>
         </div>
 
         {/* Button Section */}
@@ -40,7 +39,10 @@ const CartItem = ({ item }) => {
         {/* Price Section */}
         <div>
           <p className="text-orange-600 text-xs md:text-sm">
-            $<span className="text-headingColor text-sm md:text-lg">{item.price}</span>
+            $
+            <span className="text-headingColor text-sm md:text-lg">
+              {item.price}
+            </span>
           </p>
         </div>
       </div>
