@@ -2,7 +2,10 @@ import React from "react";
 import { motion } from "framer-motion";
 import { BiMinus, BiPlus } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
-import { addItemToCart } from "../Store/features/CartItemSlice";
+import {
+  addItemToCart,
+  removeItemFromCart,
+} from "../Store/features/CartItemSlice";
 
 const CartItem = ({ item }) => {
   const dispatch = useDispatch();
@@ -26,6 +29,7 @@ const CartItem = ({ item }) => {
           <motion.div
             whileTap={{ scale: 0.6 }}
             className="bg-gray-400 rounded-md md:rounded-lg p-1 cursor-pointer"
+            onClick={() => dispatch(removeItemFromCart(item))}
           >
             <BiMinus className="text-orange-600 text-sm md:text-base" />
           </motion.div>
@@ -45,7 +49,7 @@ const CartItem = ({ item }) => {
           <p className="text-orange-600 text-xs md:text-sm">
             $
             <span className="text-headingColor text-sm md:text-lg">
-              {item.price * item.quantity}
+              {(item.price * item.quantity).toFixed(2)}
             </span>
           </p>
         </div>
