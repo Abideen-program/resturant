@@ -25,9 +25,11 @@ const Cart = () => {
       onClick={() => dispatch(setShowCart())}
     >
       <MdShoppingBasket className="text-textColor text-xl" />
-      <div className="bg-cartNumBg w-5 h-5 rounded-full flex items-center justify-center absolute -top-4 -right-2">
-        <span className="text-white text-xs">{cartCount}</span>
-      </div>
+      {cartItems && cartItems.length > 0 && (
+        <div className="bg-cartNumBg w-5 h-5 rounded-full flex items-center justify-center absolute -top-4 -right-2">
+          <span className="text-white text-xs">{cartCount}</span>
+        </div> 
+      )}
     </motion.div>
   );
 };

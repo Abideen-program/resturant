@@ -1,7 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { fetchItems } from "../../../utils/fetchUser";
+
+const cartInfo = fetchItems()
 
 const initialState = {
-  cartItems: [],
+  cartItems: cartInfo,
   showCart: false,
   cartTotal: 0,
   cartCount: 0,
@@ -26,6 +29,8 @@ const cartItemSlice = createSlice({
       } else {
         state.cartItems = [...state.cartItems, action.payload];
       }
+
+      localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
     },
 
     removeItemFromCart(state, action) {
@@ -48,10 +53,13 @@ const cartItemSlice = createSlice({
 
         state.cartItems = newCartItems;
       }
+
+      localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
     },
 
     setClearCart(state) {
       state.cartItems = [];
+      localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
     },
 
     setCartTotal(state, action) {
