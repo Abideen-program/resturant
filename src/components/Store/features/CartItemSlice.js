@@ -4,6 +4,7 @@ const initialState = {
   cartItems: [],
   showCart: false,
   cartTotal: 0,
+  cartCount: 0,
 };
 
 const cartItemSlice = createSlice({
@@ -35,6 +36,10 @@ const cartItemSlice = createSlice({
       state.cartTotal = action.payload;
     },
 
+    setCartCount(state, action) {
+      state.cartCount = action.payload;
+    },
+
     setShowCart(state) {
       state.showCart = true;
     },
@@ -47,5 +52,11 @@ const cartItemSlice = createSlice({
 
 export default cartItemSlice.reducer;
 
-export const { addItemToCart, setClearCart, setCartTotal,setShowCart, hideCart } =
-  cartItemSlice.actions;
+export const {
+  addItemToCart,
+  setClearCart,
+  setCartTotal,
+  setCartCount,
+  setShowCart,
+  hideCart,
+} = cartItemSlice.actions;
