@@ -47,8 +47,8 @@ const UserDropdown = (props) => {
 
       {/* NAV LINKS SECTION FOR THE MOBILE SCREEN*/}
       <ul className="md:hidden flex flex-col">
-        <li className={listItemClasses} onClick={onclose}>
-          Home
+        <li className={listItemClasses}>
+          <Link to={"/"}>Home</Link>
         </li>
         <li className={listItemClasses} onClick={onclose}>
           Menu

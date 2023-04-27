@@ -82,7 +82,9 @@ function Header() {
           <div className="flex items-center gap-8">
             {/* NAV LINKS SECTION*/}
             <ul className="flex gap-8 items-center ml-auto">
-              <li className={listItemClasses}>Home</li>
+              <li className={listItemClasses}>
+                <Link to={"/"}>Home</Link>
+              </li>
               <li className={listItemClasses}>Menu</li>
               <li className={listItemClasses}>About Us</li>
               <li className={listItemClasses}>Services</li>
